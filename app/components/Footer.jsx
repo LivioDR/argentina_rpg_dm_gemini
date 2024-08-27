@@ -6,6 +6,10 @@ const styles = {
         height: '5vh',
         textAlign: 'center',
         fontSize: 10,
+        backgroundColor: 'rgba(0,0,0,0.7)',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
     }
 }
 
