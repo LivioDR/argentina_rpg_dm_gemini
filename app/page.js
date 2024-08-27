@@ -11,7 +11,10 @@ export default function Home({firebaseId = "qwertyuiop"}) {
       justifyContent: 'space-between',
       height: '100vh',
       width: '100vw',
-      backgroundImage: 'url(./background.jpeg)'
+      backgroundImage: 'url(./background.jpeg)',
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
     }}>
       <Header/>
       <MainScreen firebaseId={firebaseId}/>
