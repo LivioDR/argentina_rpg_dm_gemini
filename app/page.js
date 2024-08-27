@@ -25,7 +25,20 @@ export default function Home({id = "qwertyuiop"}) {
       setLoading(false)
     }
     getHistory()
+
+    
   },[])
+  
+  useEffect(()=>{
+    if(loading){
+      const inputField = document.getElementById("userInput")
+      inputField.addEventListener('keypress',(event) => {
+        if(event.key == "Enter"){
+          sendBtnClicked()
+        }
+      })
+    }
+  },[loading])
 
   const sendBtnClicked = () => {
     const input = document.getElementById("userInput");
@@ -34,17 +47,6 @@ export default function Home({id = "qwertyuiop"}) {
     runAi(inputText,setModelResponse, history, setHistory)
     input.value = ''
     input.focus()
-  }
-  if(loading){
-    return(
-      <div style={{
-        margin: 'auto auto',
-        height: '100vh',
-        width: '100vw',
-      }}>
-      Loading...
-      </div>
-    )
   }
 
   return (
@@ -61,7 +63,16 @@ export default function Home({id = "qwertyuiop"}) {
         borderRadius: '50px',
         }}>
         <pre style={{whiteSpace: 'pre-wrap', padding: '5%'}}>
-          {modelResponse}
+          {!loading && modelResponse}
+          {loading &&
+            <div style={{
+              margin: 'auto auto',
+              height: '100vh',
+              width: '100vw',
+            }}>
+            Loading...
+            </div>
+          }
         </pre>
       </div>
       <div style={{
