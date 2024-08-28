@@ -45,7 +45,7 @@ const saveHistoryForId = async(id, history) => {
 const createInitialHistoryForId = async(id) => {
     const docRef = doc(db,"campaigns", id)
     await setDoc(docRef, {
-        history: [
+        history:
             [
                 {
                     role: 'user',
@@ -56,8 +56,7 @@ const createInitialHistoryForId = async(id) => {
                     parts: [{text: "Welcome, adventurer, to the desolate plains of post-apocalyptic Argentina. The year is 2077, and the once vibrant nation is now a wasteland ravaged by nuclear fire.  Tell me, what is the name of your character, and what race and profession do they embody?  Tell me their story, and I shall weave it into the fabric of this ravaged world."}]
                 }
             ]
-        ]
     })
 }
 
-export { getHistoryForId, saveHistoryForId }
+export { getHistoryForId, saveHistoryForId, createInitialHistoryForId }
