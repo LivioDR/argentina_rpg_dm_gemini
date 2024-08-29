@@ -1,9 +1,6 @@
 import { GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from "@google/generative-ai";
 import { saveHistoryForId } from "../firebase/firebaseFunctions";
 
-// TEST ID
-const userId = "qwertyuiop"
-
 // Fetch your API_KEY
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY
 
@@ -63,7 +60,7 @@ async function runAi(prompt, setModelResponse, receivedHistory, setHistory) {
     role: 'model',
     parts: [{text: result.response.text()}]
   })
-
+  const userId = localStorage.getItem("uid")
   await saveHistoryForId(userId, history)
   setHistory(history)
 
