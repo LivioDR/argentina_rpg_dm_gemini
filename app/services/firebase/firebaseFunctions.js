@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore, getDoc, doc, setDoc } from "firebase/firestore";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -17,6 +18,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app)
+const auth = getAuth(app)
 
 
 const getHistoryForId = async(id) => {
@@ -59,4 +61,27 @@ const createInitialHistoryForId = async(id) => {
     })
 }
 
-export { getHistoryForId, saveHistoryForId, createInitialHistoryForId }
+const loginUser = async(email, password, setErrorMessage) => {
+    let success = false
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        const uid = user.uid
+        if(typeof window != "undefined"){
+            localStorage.setItem("uid",uid)
+        }
+        setErrorMessage("")
+        success = true
+        // ...
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        setErrorMessage(errorMessage)
+        success = false
+      });
+      return success
+}
+
+
+export { getHistoryForId, saveHistoryForId, createInitialHistoryForId, loginUser }
