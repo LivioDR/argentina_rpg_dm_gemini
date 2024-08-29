@@ -63,7 +63,7 @@ const createInitialHistoryForId = async(id) => {
 
 const loginUser = async(email, password, setErrorMessage) => {
     let success = false
-    signInWithEmailAndPassword(auth, email, password)
+    await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
