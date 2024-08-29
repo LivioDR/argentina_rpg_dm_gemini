@@ -1,8 +1,24 @@
+'use client'
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import MainScreen from "./components/MainScreen";
+import { useEffect, useState } from "react";
+import LoginScreen from "./components/LoginScreen/LoginScreen";
 
-export default function Home({firebaseId = "qwertyuiop"}) {
+export default function Home() {
+
+  const [uid, setUid] = useState('')
+  const [isLogin, setIsLogin] = useState(false)
+
+  useEffect(()=>{
+    if(typeof window != "undefined"){
+      const userId = localStorage.getItem("uid")
+      if(userId){
+        setUid(userId)
+        setIsLogin(true)
+      }
+    }
+  },[])
 
   return (
     <div style={{
@@ -17,7 +33,14 @@ export default function Home({firebaseId = "qwertyuiop"}) {
       backgroundRepeat: 'no-repeat',
     }}>
       <Header/>
-      <MainScreen firebaseId={firebaseId}/>
+      {
+        !isLogin &&
+        <LoginScreen setUid={setUid} setIsLogin={setIsLogin}/>
+      }
+      {
+        isLogin &&
+        <MainScreen firebaseId={uid}/>
+      }
       <Footer/>
     </div>  
   );

@@ -4,7 +4,7 @@ import runAi from "../services/gptApi/configureApi";
 import { getHistoryForId } from "../services/firebase/firebaseFunctions";
 import Display from "./MainScreen/Display";
 
-export default function MainScreen({firebaseId = "qwertyuiop"}) {
+export default function MainScreen({firebaseId}) {
 
   const [modelResponse, setModelResponse] = useState("Welcome, adventurer, to the desolate plains of post-apocalyptic Argentina. The year is 2077, and the once vibrant nation is now a wasteland ravaged by nuclear fire.  Tell me, what is the name of your character, and what race and profession do they embody?  Tell me their story, and I shall weave it into the fabric of this ravaged world.")
   const [loading, setLoading] = useState(true)
