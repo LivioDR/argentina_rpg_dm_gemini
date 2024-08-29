@@ -27,7 +27,7 @@ export default function Home() {
       justifyContent: 'space-between',
       height: '100vh',
       width: '100vw',
-      backgroundImage: 'url(./background.jpeg)',
+      backgroundImage: 'url(./login.jpeg)',
       backgroundPosition: 'center',
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
