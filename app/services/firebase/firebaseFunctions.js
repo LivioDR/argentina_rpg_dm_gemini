@@ -29,8 +29,7 @@ const getHistoryForId = async(id) => {
         return docSnap.data().history
     }
     else{
-        await createInitialHistoryForId(id)
-        await getHistoryForId(id)
+        console.error(`An error was found while retrieving the chat history`)
     }
 }
 
