@@ -35,7 +35,7 @@ export default function MainScreen({firebaseId}) {
     })
     
   },[])
-
+  
   const sendBtnClicked = () => {
     const input = document.getElementById("userInput");
     const inputText = input.value.trim()
@@ -61,20 +61,13 @@ export default function MainScreen({firebaseId}) {
       }}>
         <input id="userInput" 
         style={{ 
-          width: '70%', 
-          marginInline: '2%', 
+          width: '80%',
+          maxWidth: '500px', 
+          marginInline: '10%', 
           height: '3rem',
           padding: '0.5rem',
           }}>
         </input>
-        <button 
-          onClick={()=>{sendBtnClicked()}}
-          style={{
-            width: '20%',
-            margin: '3%',
-            height: '3rem',
-          }}  
-          >Send</button>
       </div>
     </>
   );
