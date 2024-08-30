@@ -10,9 +10,12 @@ export default function Home() {
   const [uid, setUid] = useState('')
   const [isLogin, setIsLogin] = useState(false)
   const [username, setUsername] = useState('')
+  const [viewport, setViewport] = useState()
 
   useEffect(()=>{
     if(typeof window != "undefined"){
+      let windowSize = {height: window.innerHeight, width: window.innerWidth}
+      setViewport(windowSize)
       const userId = localStorage.getItem("uid")
       const user = localStorage.getItem("username")
       if(userId){
@@ -38,7 +41,7 @@ export default function Home() {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
-      height: '100vh',
+      height: viewport?.height | '100vh',
       width: '100vw',
       backgroundImage: 'url(./login.jpeg)',
       backgroundPosition: 'center',
