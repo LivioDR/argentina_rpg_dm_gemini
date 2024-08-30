@@ -2,12 +2,44 @@
 import { useState } from "react";
 import React from "react";
 import InputField from "./InputField";
-import { loginUser, resetPassword } from "@/app/services/firebase/firebaseFunctions";
+import { loginUser, registerUser, resetPassword } from "@/app/services/firebase/firebaseFunctions";
+import Button from "./Button";
 
-const LoginScreen = ({setUid, setIsLogin}) => {
+const LoginScreen = ({setUid, setIsLogin, setUsername}) => {
 
     const [error, setError] = useState("")
     const [forgotPassScreen, setForgotPassScreen] = useState(false)
+    const [registerScreen, setRegisterScreen] = useState(false)
+
+    const registerMe = async() => {
+        const usernameInput = document.getElementById("username-input")
+        const emailInput = document.getElementById("email-input")
+        const passInput = document.getElementById("password-input")
+        
+        const username = usernameInput.value.trim()
+        const email = emailInput.value.trim()
+        const pass = passInput.value.trim()
+        
+        if(username && email && pass){
+            try{
+                let attempt = await registerUser(username, email, pass, setError)
+                if(attempt){
+                    if(typeof window != "undefined"){
+                        let uid = localStorage.getItem("uid")
+                        setUid(uid)
+                        setUsername(username)
+                        setIsLogin(true)
+                    }
+                }
+            }
+            catch(e){
+                console.error(e)
+            }
+        }
+        else{
+            setError("Please enter valid credentials")
+        }
+    }
 
 
     const logMeIn = async() => {
@@ -21,7 +53,9 @@ const LoginScreen = ({setUid, setIsLogin}) => {
                 if(attempt){
                     if(typeof window != "undefined"){
                         let uid = localStorage.getItem("uid")
+                        let username = localStorage.getItem("username")
                         setUid(uid)
+                        setUsername(username)
                         setIsLogin(true)
                     }
                 }
@@ -57,6 +91,10 @@ const LoginScreen = ({setUid, setIsLogin}) => {
             maxWidth: '500px',
             margin: '0 auto',
         }}>
+            {
+                registerScreen &&
+                <InputField type={'username'} placeholder={'Enter your username'}/>
+            }
             <InputField type={'email'} placeholder={"Enter your email"} />
             {
                 !forgotPassScreen &&
@@ -64,42 +102,67 @@ const LoginScreen = ({setUid, setIsLogin}) => {
             }
             {
                 !forgotPassScreen &&
+                !registerScreen &&
                 <>
-                    <button style={{
-                        width: '40%',
-                        height: '3rem',
-                        margin: '3% 5%',
-                        borderRadius: '50px',
-                        backgroundColor: '#322cf0',
-                        color: 'white',
-                    }} onClick={()=>{logMeIn()}}>Login</button>
-                    <button style={{
-                        width: '40%',
-                        height: '3rem',
-                        margin: '3% 5%',
-                        borderRadius: '50px',
-                        backgroundColor: '#A0A0A0',
-                    }} onClick={()=>{setForgotPassScreen(true);setError("")}}>Forgot pass?</button>
+                    <Button
+                        background={'#322cf0'}
+                        functionToCall={logMeIn}
+                        text={"Login"}
+                        textColor={'white'}
+                    />
+                    <Button 
+                        background={'#e7e7ffd1'}
+                        functionToCall={()=>{
+                            setRegisterScreen(true)
+                            setError("")
+                        }}
+                        text={"Register"}
+                        textColor={'black'}
+                    />
+                    <Button
+                        width="90%"
+                        background={"#A0A0A080"}
+                        textColor={"white"}
+                        text={"Forgot pass?"} 
+                        functionToCall={()=>{
+                            setForgotPassScreen(true)
+                            setError("")
+                        }}
+                    />                   
                 </>
             }
             {
                 forgotPassScreen && 
                 <>
-                    <button style={{
-                        width: '40%',
-                        height: '3rem',
-                        margin: '3% 5%',
-                        borderRadius: '50px',
-                        backgroundColor: '#A0A0A0',
-                        color: 'white',
-                    }} onClick={()=>{setForgotPassScreen(false);setError("")}}>Back</button>
-                    <button style={{
-                        width: '40%',
-                        height: '3rem',
-                        margin: '3% 5%',
-                        borderRadius: '50px',
-                        backgroundColor: '#891b1b',
-                    }} onClick={()=>{resetPass()}}>Send recovery email</button>
+                    <Button
+                        background={'#A0A0A0'}
+                        textColor={'white'}
+                        text={"Back"}
+                        functionToCall={()=>{setForgotPassScreen(false);setError("")}}
+                    />
+                    <Button
+                        background={'#891b1b'}
+                        functionToCall={resetPass}
+                        text={"Send recovery email"}
+                        textColor={'white'}
+                    />
+                </>
+            }
+            {
+                registerScreen &&
+                <>
+                    <Button
+                        background={'#e7e7ffd1'}
+                        textColor={'black'}
+                        text={"Back"}
+                        functionToCall={()=>{setRegisterScreen(false);setError("")}}
+                    />
+                    <Button
+                        background={'#322cf0'}
+                        functionToCall={registerMe}
+                        text={"Register"}
+                        textColor={'white'}
+                    />
                 </>
             }
             <p id="errorMessage"

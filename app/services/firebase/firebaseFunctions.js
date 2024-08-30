@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore, getDoc, doc, setDoc } from "firebase/firestore";
-import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, createUserWithEmailAndPassword } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -44,6 +44,14 @@ const saveHistoryForId = async(id, history) => {
     }
 }
 
+const createUserData = async(id, username, email) => {
+    const docRef = doc(db, "users", id)
+    await setDoc(docRef, {
+        username: username,
+        email: email,
+    })
+}
+
 const createInitialHistoryForId = async(id) => {
     const docRef = doc(db,"campaigns", id)
     await setDoc(docRef, {
@@ -61,26 +69,38 @@ const createInitialHistoryForId = async(id) => {
     })
 }
 
+const getUsernameForId = async(id) => {
+    const docRef = doc(db, "users", id);
+    const docSnap = await getDoc(docRef)
+    if(docSnap.exists()){
+        console.warn(docSnap.data())
+        return docSnap.data().username
+    }
+    else{
+        console.error('An error was found while trying to retrieve the username')
+    }
+}
+
 const loginUser = async(email, password, setErrorMessage) => {
     let success = false
-    await signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in 
+    try{
+        let userCredential = await signInWithEmailAndPassword(auth, email, password)
         const user = userCredential.user;
         const uid = user.uid
+        const username = await getUsernameForId(uid)
         if(typeof window != "undefined"){
             localStorage.setItem("uid",uid)
+            localStorage.setItem("username",username)
         }
         setErrorMessage("")
         success = true
-        // ...
-      })
-      .catch((error) => {
+    }
+    catch(error){
         const errorMessage = error.message;
         setErrorMessage(errorMessage)
         success = false
-      });
-      return success
+    }
+    return success
 }
 
 const resetPassword = async(email, setErrorMessage) => {
@@ -91,9 +111,31 @@ const resetPassword = async(email, setErrorMessage) => {
       .catch((error) => {
         const errorMessage = error.message;
         setErrorMessage(errorMessage)
-        // ..
       });
 }
 
+const registerUser = async(username, email, password, setErrorMessage) => {
+    let success = false
+    await createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            const uid = user.uid
+            if(typeof window != "undefined"){
+                localStorage.setItem("uid",uid)
+                localStorage.setItem("username", username)
+            }
+            createUserData(uid, username, email)
+            createInitialHistoryForId(uid)
+            setErrorMessage("")
+            success = true
+        })
+        .catch((error) => {
+            const errorMessage = error.message;
+            setErrorMessage(errorMessage)
+            success = false
+        });
+    return success
+}
 
-export { getHistoryForId, saveHistoryForId, createInitialHistoryForId, loginUser, resetPassword }
+
+export { getHistoryForId, saveHistoryForId, createInitialHistoryForId, loginUser, resetPassword, registerUser }
