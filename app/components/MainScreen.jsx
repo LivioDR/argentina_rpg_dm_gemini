@@ -6,7 +6,7 @@ import Display from "./MainScreen/Display";
 
 export default function MainScreen({firebaseId}) {
 
-  const [modelResponse, setModelResponse] = useState("Welcome, adventurer, to the desolate plains of post-apocalyptic Argentina. The year is 2077, and the once vibrant nation is now a wasteland ravaged by nuclear fire.  Tell me, what is the name of your character, and what race and profession do they embody?  Tell me their story, and I shall weave it into the fabric of this ravaged world.")
+  const [modelResponse, setModelResponse] = useState("")
   const [loading, setLoading] = useState(true)
 
   let history = []
@@ -22,9 +22,7 @@ export default function MainScreen({firebaseId}) {
       console.log("History retrieved")
       console.warn(usersHistory)
       setHistory(usersHistory)
-      if(usersHistory?.length > 0){
-        setModelResponse(usersHistory[usersHistory.length -1].parts[0].text)
-      }
+      setModelResponse(history[history.length -1].parts[0].text)
       setLoading(false)
     }
     getHistory()
