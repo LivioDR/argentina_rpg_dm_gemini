@@ -54,7 +54,7 @@ export async function POST(request) {
     // then parse the string
     const objectResult = JSON.parse(result)
 
-    // separating the variables from the data to pass to the model
+    // separating the variables from the data to pass to firebase
     const history = objectResult.history
     const id = objectResult.id
     if(history){
