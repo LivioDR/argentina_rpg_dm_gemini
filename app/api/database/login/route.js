@@ -7,12 +7,12 @@ import { NextResponse } from "next/server";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "rpgdm-83fa3.firebaseapp.com",
   projectId: "rpgdm-83fa3",
   storageBucket: "rpgdm-83fa3.appspot.com",
   messagingSenderId: "597557920768",
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
+  appId: process.env.FIREBASE_APP_ID
 };
 
 // Initialize Firebase
@@ -72,7 +72,7 @@ export async function POST(request) {
                 message: errorMessage,
                 success: false,
             },
-            { status: 400 }
+            { status: 401 }
         )
     }
 }
