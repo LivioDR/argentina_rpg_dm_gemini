@@ -43,7 +43,7 @@ export default function Home() {
       justifyContent: 'space-between',
       height: viewport?.height | '100vh',
       width: '100vw',
-      backgroundImage: 'url(./login.jpeg)',
+      backgroundImage: 'url(./background.jpeg)',
       backgroundPosition: 'center',
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
