@@ -2,14 +2,6 @@
 
 TermoArgenta RPG is a [Next.js](https://nextjs.org/) application developed by Livio Reinoso and bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Dependencies
-
-This RPG takes advantage of Gemini-1.5-Flash generative-AI capabilities to act as a Dungeon Master to guide the user's campaign and provide real-time interactive choices based on the user's input to move the story forward.
-
-The Authentication of users and their game logs are being managed with [Firebase](https://firebase.google.com/).
-
-A loading spinner has been added to the Display component. This spinner is part of the [react-spinners library](https://www.npmjs.com/package/react-spinners)
-
 ## Getting Started locally
 
 First, run the development server:
@@ -28,15 +20,27 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Press_Start_2P, a custom Google Font.
 
+## Dependencies
+
+This RPG takes advantage of [Gemini-1.5-Flash](https://ai.google.dev/gemini-api/docs/quickstart?lang=node) generative-AI capabilities to act as a Dungeon Master to guide the user's campaign and provide real-time interactive choices based on the user's input to move the story forward.
+
+The Authentication of users and their game logs are being managed with [Firebase](https://firebase.google.com/).
+
+A loading spinner has been added to the Display component. This spinner is part of the [react-spinners library](https://www.npmjs.com/package/react-spinners)
+
+All calls to Gemini and Firebase are being handled through custom API endpoints set in the API folder of this Next App. This way all the keys can be stored server-side and avoid exposure in the client's browser.
+
 ## Deployment
 
 This Next App has been deployed on Vercel, through the built-in CI/CD pipeline with this [GitHub repository](https://github.com/LivioDR/argentina_rpg_dm_gemini).
+
+Performance data is collected with the use of [Vercel's SpeedInsights](https://vercel.com/docs/speed-insights/quickstart#add-the-speedinsights-component-to-your-app) to analyze the app's performance and behaviour, to detect pain points and potential improvements.
 
 ---
 
 ## Run dockerized image locally
 
-You need to build first the docker image of the app `rpgdm`.
+Build first the docker image of the app `rpgdm`.
 
 Once this has been done, assuming it will run on port number 3000, it needs to run with the environmental variables for the custom APIs to work.
 
@@ -46,13 +50,13 @@ This can be done by running the following command
 docker run -p 3000:3000 --env-file .env rpgdm
 ```
 
-Make sure to include all required variables on your .env file in the root folder.
+Make sure to include all required variables on your dotenv file in the root folder.
 
 ---
 
 ## Disclaimer & acknowledgement 
 
-This app was created only with educational purposes.
+This app was created by Livio Reinoso, only with educational purposes.
 
 Icosahedron icons created by [Freepik - Flaticon](https://www.flaticon.com/free-icons/icosahedron)
 
