@@ -1,8 +1,8 @@
 'use client'
 import { useEffect, useState } from "react";
-import runAi from "../services/gptApi/configureApi";
-import { getHistoryForId } from "../services/firebase/firebaseFunctions";
-import Display from "./MainScreen/Display";
+import runAi from "../../services/gptApi/configureApi";
+import { getHistoryForId } from "../../services/firebase/firebaseFunctions";
+import Display from "./Display";
 
 export default function MainScreen({firebaseId}) {
 
@@ -42,7 +42,7 @@ export default function MainScreen({firebaseId}) {
     if(inputText.length > 0){
       console.log(inputText);
       console.log("About to pass the history: ", history)
-      runAi(inputText, setModelResponse, history, setHistory)
+      runAi(inputText, setModelResponse, history, setHistory, setLoading)
     }
     input.value = ''
     input.focus()

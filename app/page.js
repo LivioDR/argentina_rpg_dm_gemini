@@ -1,7 +1,7 @@
 'use client'
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import MainScreen from "./components/MainScreen";
+import MainScreen from "./components/MainScreen/MainScreen";
 import { useEffect, useState } from "react";
 import LoginScreen from "./components/LoginScreen/LoginScreen";
 
