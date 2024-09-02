@@ -15,9 +15,10 @@ const styles = {
     logoWrapper: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
+        marginLeft: 20,
         alignItems: 'center',
-        width: '80%',
+        width: '100%',
     },
     text: {
         fontSize: 24,
@@ -47,7 +48,7 @@ const Header = ({username, displayLogout = true, logoutFunction}) => {
                         style={styles.image}
                     />
                     <p style={styles.text}>
-                        AI-gentina RPG
+                        TermoArgenta RPG
                     </p>
                 </div>
                 {
