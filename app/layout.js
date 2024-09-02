@@ -1,4 +1,5 @@
 import { Press_Start_2P } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import "./globals.css";
 
 const pressStart = Press_Start_2P({ weight: "400", subsets: ["latin"]});
@@ -11,6 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <SpeedInsights/>
       <body className={pressStart.className}>{children}</body>
     </html>
   );
