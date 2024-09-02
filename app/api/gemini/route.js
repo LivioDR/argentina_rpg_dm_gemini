@@ -1,5 +1,6 @@
 import { GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from "@google/generative-ai";
 import { NextResponse } from "next/server";
+import streamToString from "@/app/utilities/apiFunctions";
 
 // Fetch your API_KEY
 const API_KEY = process.env.API_KEY
@@ -68,12 +69,3 @@ export async function POST(request) {
         return NextResponse.json({message: `An error has occurred. ${JSON.stringify(e)}`})
     }
 }
-
-async function streamToString (stream) {
-    const chunks = [];
-    for await(const chunk of stream) {
-        chunks.push(Buffer.from(chunk));
-    }
-    return Buffer.concat(chunks).toString("utf-8");
-  }
-  
