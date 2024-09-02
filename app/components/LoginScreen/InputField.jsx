@@ -1,4 +1,7 @@
 import React from "react";
+import { Press_Start_2P } from "next/font/google";
+
+const pressStart = Press_Start_2P({ weight: "400", subsets: ["latin"]});
 
 const InputField = ({placeholder, type}) => {
 
@@ -8,7 +11,7 @@ const InputField = ({placeholder, type}) => {
             height: '3rem',
             margin: '5%',
         }}>
-            <input style={{
+            <input className={pressStart.className} style={{
             width: '90%',
             height: '3rem',
             padding: '3%',

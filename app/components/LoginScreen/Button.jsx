@@ -1,8 +1,11 @@
 import React from "react";
+import { Press_Start_2P } from "next/font/google";
+
+const pressStart = Press_Start_2P({ weight: "400", subsets: ["latin"]});
 
 const Button = ({text, functionToCall, background, textColor, width = '40%', borderColor = 'white'}) => {
     return(
-        <button style={{
+        <button className={pressStart.className} style={{
             width: width,
             height: '3rem',
             margin: '3% 5%',

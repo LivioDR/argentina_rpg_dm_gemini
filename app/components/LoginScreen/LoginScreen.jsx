@@ -133,7 +133,12 @@ const LoginScreen = ({setUid, setIsLogin, setUsername}) => {
             }
             {
                 forgotPassScreen && 
-                <>
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
                     <Button
                         background={'#A0A0A0'}
                         textColor={'white'}
@@ -146,11 +151,16 @@ const LoginScreen = ({setUid, setIsLogin, setUsername}) => {
                         text={"Send recovery email"}
                         textColor={'white'}
                     />
-                </>
+                </div>
             }
             {
                 registerScreen &&
-                <>
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
                     <Button
                         background={'#e7e7ffd1'}
                         textColor={'black'}
@@ -163,7 +173,7 @@ const LoginScreen = ({setUid, setIsLogin, setUsername}) => {
                         text={"Register"}
                         textColor={'white'}
                     />
-                </>
+                </div>
             }
             <p id="errorMessage"
             style={{
