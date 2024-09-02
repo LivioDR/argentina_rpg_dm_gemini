@@ -65,7 +65,7 @@ export async function POST(request) {
         return NextResponse.json({message: responseFromTheModel})
     }
     catch(e){
-        return NextResponse.json({message: "An error has occurred.", error: JSON.stringify(e)})
+        return NextResponse.json({message: `An error has occurred. ${JSON.stringify(e)}`})
     }
 }
 
