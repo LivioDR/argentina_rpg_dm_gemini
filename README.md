@@ -1,4 +1,14 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# TermoArgenta RPG
+
+TermoArgenta RPG is a [Next.js](https://nextjs.org/) application developed by Livio Reinoso and bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## Dependencies
+
+This RPG takes advantage of Gemini-1.5-Flash generative-AI capabilities to act as a Dungeon Master to guide the user's campaign and provide real-time interactive choices based on the user's input to move the story forward.
+
+The Authentication of users and their game logs are being managed with [Firebase](https://firebase.google.com/).
+
+A loading spinner has been added to the Display component. This spinner is part of the [react-spinners library](https://www.npmjs.com/package/react-spinners)
 
 ## Getting Started locally
 
@@ -18,18 +28,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Press_Start_2P, a custom Google Font.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
 ## Deployment
 
-This app has been deployed on Vercel, through a CI pipeline with this [GitHub repository](https://github.com/LivioDR/argentina_rpg_dm_gemini).
+This Next App has been deployed on Vercel, through the built-in CI/CD pipeline with this [GitHub repository](https://github.com/LivioDR/argentina_rpg_dm_gemini).
 
 ---
 
@@ -49,7 +50,7 @@ Make sure to include all required variables on your .env file in the root folder
 
 ---
 
-## Acknowledgement 
+## Disclaimer & acknowledgement 
 
 This app was created only with educational purposes.
 
