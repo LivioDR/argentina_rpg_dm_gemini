@@ -65,38 +65,22 @@ const createInitialHistoryForId = async(id) => {
     })
 }
 
-const getUsernameForId = async(id) => {
-    const docRef = doc(db, "users", id);
-    const docSnap = await getDoc(docRef)
-    if(docSnap.exists()){
-        console.warn(docSnap.data())
-        return docSnap.data().username
-    }
-    else{
-        console.error('An error was found while trying to retrieve the username')
-    }
-}
-
 const loginUser = async(email, password, setErrorMessage) => {
-    let success = false
-    try{
-        let userCredential = await signInWithEmailAndPassword(auth, email, password)
-        const user = userCredential.user;
-        const uid = user.uid
-        const username = await getUsernameForId(uid)
+    const response = await fetch('/api/database/login',{
+        method: 'POST',
+        body: JSON.stringify({
+            email: email,
+            password: btoa(password)
+        })
+    }).then(res => res.json())
+    if(response.success){
         if(typeof window != "undefined"){
-            localStorage.setItem("uid",uid)
-            localStorage.setItem("username",username)
+            localStorage.setItem("uid",response.uid)
+            localStorage.setItem("username",response.username)
         }
-        setErrorMessage("")
-        success = true
     }
-    catch(error){
-        const errorMessage = error.message;
-        setErrorMessage(errorMessage)
-        success = false
-    }
-    return success
+    setErrorMessage(response.message)
+    return response.success
 }
 
 const resetPassword = async(email, setErrorMessage) => {
