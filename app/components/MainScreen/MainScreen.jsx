@@ -19,8 +19,6 @@ export default function MainScreen({firebaseId}) {
     const getHistory = async() => {
       setLoading(true)
       const usersHistory = await getHistoryForId(firebaseId)
-      console.log("History retrieved")
-      console.warn(usersHistory)
       setHistory(usersHistory)
       setModelResponse(history[history.length -1].parts[0].text)
       setLoading(false)
@@ -40,8 +38,6 @@ export default function MainScreen({firebaseId}) {
     const input = document.getElementById("userInput");
     const inputText = input.value.trim()
     if(inputText.length > 0){
-      console.log(inputText);
-      console.log("About to pass the history: ", history)
       runAi(inputText, setModelResponse, history, setHistory, setLoading)
     }
     input.value = ''

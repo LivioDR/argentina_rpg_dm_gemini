@@ -13,7 +13,6 @@ async function runAi(prompt, setModelResponse, receivedHistory, setHistory, setL
   }).then(res => res.json())
 
   // send the history and the prompt to the model
-  console.log(response);
   setModelResponse(response.message)
   
   // adding the user prompt to the history
