@@ -17,16 +17,18 @@ export default function RootLayout({ children }) {
         <title>TermoArgenta RPG</title>
         <meta name="title" content="TermoArgenta RPG" />
         <meta name="description" content="TermoArgenta RPG is an AI-powered game where you can interact in real-time with a customized Dungeon Master that will guide you through your campaigns." />
+        {/* FACEBOOK */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://termoargentarpg.vercel.app/background.jpeg" />
+        <meta property="og:url" content="https://termoargentarpg.vercel.app/" />
         <meta property="og:title" content="TermoArgenta RPG" />
         <meta property="og:description" content="TermoArgenta RPG is an AI-powered game where you can interact in real-time with a customized Dungeon Master that will guide you through your campaigns." />
-        <meta property="og:image" content="https://termoargentarpg.vercel.app/background.jpeg" />
+        <meta property="og:image" content="https://termoargentarpg.vercel.app/background.jpg" />
+        {/* TWITTER */}
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://termoargentarpg.vercel.app/" />
         <meta property="twitter:title" content="TermoArgenta RPG" />
         <meta property="twitter:description" content="TermoArgenta RPG is an AI-powered game where you can interact in real-time with a customized Dungeon Master that will guide you through your campaigns." />
-        <meta property="twitter:image" content="https://termoargentarpg.vercel.app/background.jpeg" />
+        <meta property="twitter:image" content="https://termoargentarpg.vercel.app/background.jpg" />
       </Head>
       <SpeedInsights/>
       <body className={pressStart.className}>{children}</body>
