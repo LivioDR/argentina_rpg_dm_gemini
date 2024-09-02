@@ -1,4 +1,4 @@
-const debug = true
+const debug = false
 const deployUrl = "https://termoargentarpg.vercel.app"
 // This code executes in its own worker or thread
 self.addEventListener("install", event => {
@@ -16,7 +16,9 @@ self.addEventListener("activate", event => {
 
 // adding resources from PokeAPI to the cache
 self.addEventListener('fetch', event => {
-   console.log(`Fetching from ${event.request.url}`)
+   if(debug){
+      console.log(`Fetching from ${event.request.url}`)
+   }
    // Caching the app shell files and skipping the chrome extensions and firebase functions
    if(!(event.request.url).startsWith('chrome-extension') && 
       !(event.request.url).startsWith(`${deployUrl}/api/`) && 
