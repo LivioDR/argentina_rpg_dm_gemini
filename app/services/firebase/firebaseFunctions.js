@@ -12,7 +12,7 @@ const firebaseConfig = {
   projectId: "rpgdm-83fa3",
   storageBucket: "rpgdm-83fa3.appspot.com",
   messagingSenderId: "597557920768",
-  appId: process.env.MEXT_PUBLIC_FIREBASE_APP_ID
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
 // Initialize Firebase
@@ -103,14 +103,13 @@ const loginUser = async(email, password, setErrorMessage) => {
 }
 
 const resetPassword = async(email, setErrorMessage) => {
-    await sendPasswordResetEmail(auth, email.trim())
-      .then(() => {
-        setErrorMessage(`Password reset email sent to ${email.trim()}.`)
-      })
-      .catch((error) => {
-        const errorMessage = error.message;
-        setErrorMessage(errorMessage)
-      });
+    const response = await fetch('/api/database/reset',{
+        method: 'POST',
+        body: JSON.stringify({
+           email: email,
+        })
+      }).then(res => res.json())
+    setErrorMessage(response.message)
 }
 
 const registerUser = async(username, email, password, setErrorMessage) => {
@@ -137,4 +136,4 @@ const registerUser = async(username, email, password, setErrorMessage) => {
 }
 
 
-export { getHistoryForId, saveHistoryForId, createInitialHistoryForId, loginUser, resetPassword, registerUser }
+export { getHistoryForId, saveHistoryForId, loginUser, resetPassword, registerUser }
