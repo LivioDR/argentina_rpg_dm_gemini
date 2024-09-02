@@ -23,6 +23,9 @@ export default function Home() {
         setUsername(user)
         setIsLogin(true)
       }
+      if('serviceWorker' in navigator){
+        navigator.serviceWorker.register('/serviceWorker.js')
+      }
     }
   },[])
 
