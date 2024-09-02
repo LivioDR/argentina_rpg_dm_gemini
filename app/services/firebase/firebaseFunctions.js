@@ -22,24 +22,21 @@ const auth = getAuth(app)
 
 
 const getHistoryForId = async(id) => {
-    const docRef = doc(db, "campaigns", id);
-    const docSnap = await getDoc(docRef)
-    if(docSnap.exists()){
-        console.warn(docSnap.data())
-        return docSnap.data().history
-    }
-    else{
-        console.error(`An error was found while retrieving the chat history`)
-    }
+    const response = await fetch(`/api/database/history?id=${id}`)
+        .then(res => res.json())
+    return response.message    
 }
 
 const saveHistoryForId = async(id, history) => {
-    console.log("History to be saved:")
-    console.log(history)
     if(history){
-        const docRef = doc(db, "campaigns", id)
-        await setDoc(docRef, {history: history})
-        console.log("Data saved successfully")
+        const response = await fetch('/api/database/history',{
+            method: 'POST',
+            body: JSON.stringify({
+               history: JSON.stringify(history),
+               id: id,
+            })
+          }).then(res => res.json())
+        console.log(response.message)
     }
 }
 
