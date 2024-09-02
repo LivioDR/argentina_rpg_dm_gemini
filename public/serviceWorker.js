@@ -16,7 +16,7 @@ self.addEventListener("activate", event => {
 
 // adding resources from PokeAPI to the cache
 self.addEventListener('fetch', event => {
-
+   console.log(`Fetching from ${event.request.url}`)
    // Caching the app shell files and skipping the chrome extensions and firebase functions
    if(!(event.request.url).startsWith('chrome-extension') && 
       !(event.request.url).startsWith(`${deployUrl}/api/`) && 
