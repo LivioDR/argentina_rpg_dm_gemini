@@ -21,7 +21,7 @@ const styles = {
         width: '100%',
     },
     text: {
-        fontSize: 24,
+        fontSize: 18,
     },
     image: {
         margin: '2%',
@@ -60,6 +60,7 @@ const Header = ({username, displayLogout = true, logoutFunction}) => {
                         functionToCall={logoutFunction}
                         width={'20%'}
                         borderColor={'transparent'}
+                        fontSize={'x-small'}
                     />
                 }
             </div>

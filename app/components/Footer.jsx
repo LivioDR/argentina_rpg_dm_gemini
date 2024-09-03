@@ -5,7 +5,7 @@ const styles = {
         width: '100%',
         height: '5vh',
         textAlign: 'center',
-        fontSize: 10,
+        fontSize: 8,
         backgroundColor: 'rgba(0,0,0,0.7)',
         display: 'flex',
         flexDirection: 'column',

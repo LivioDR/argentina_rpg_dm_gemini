@@ -3,7 +3,7 @@ import { Press_Start_2P } from "next/font/google";
 
 const pressStart = Press_Start_2P({ weight: "400", subsets: ["latin"]});
 
-const Button = ({text, functionToCall, background, textColor, width = '40%', borderColor = 'white'}) => {
+const Button = ({text, functionToCall, background, textColor, width = '40%', borderColor = 'white', fontSize = null}) => {
     return(
         <button className={pressStart.className} style={{
             width: width,
@@ -12,7 +12,8 @@ const Button = ({text, functionToCall, background, textColor, width = '40%', bor
             borderRadius: '50px',
             backgroundColor: background,
             color: textColor,
-            borderColor: borderColor
+            borderColor: borderColor,
+            fontSize: fontSize? fontSize : ''
         }} onClick={()=>{functionToCall()}}>{text}</button>
     )
 }
