@@ -1,4 +1,5 @@
 import React from "react";
+import Markdown from "react-markdown";
 import { PacmanLoader } from "react-spinners";
 
 const Display = ({loading, modelResponse}) => {
@@ -15,9 +16,14 @@ const Display = ({loading, modelResponse}) => {
             color: 'black',
             borderRadius: '10px',
             }}>
-            <pre style={{whiteSpace: 'pre-wrap', padding: '5%', height: '100%',}}>
-            {!loading && modelResponse}
-            {loading &&
+            <pre style={{whiteSpace: 'pre-wrap', padding: '5%', fontSize: '1rem', fontWeight: '400', height: '100%',}}>
+            {
+            loading && 
+            <Markdown>
+                {modelResponse}
+            </Markdown>
+            }
+            {!loading &&
                 <div style={{
                 display: 'grid',
                 placeContent: 'center',
@@ -25,7 +31,7 @@ const Display = ({loading, modelResponse}) => {
                 height: '100%',
                 width: '100%',
                 }}>
-                <p style={{margin: '1%', width: '100%', textAlign: 'center',}}>Loading</p>
+                <p style={{marginBottom: '12px', width: '100%', textAlign: 'center',}}>Loading</p>
                 <PacmanLoader />
                 </div>
             }
