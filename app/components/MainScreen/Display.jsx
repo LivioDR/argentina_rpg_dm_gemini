@@ -13,9 +13,9 @@ const Display = ({loading, modelResponse}) => {
             height: '60%',
             backgroundColor: 'lightgray',
             color: 'black',
-            borderRadius: '50px',
+            borderRadius: '10px',
             }}>
-            <pre style={{whiteSpace: 'pre-wrap', padding: '10%', height: '100%',}}>
+            <pre style={{whiteSpace: 'pre-wrap', padding: '5%', height: '100%',}}>
             {!loading && modelResponse}
             {loading &&
                 <div style={{
