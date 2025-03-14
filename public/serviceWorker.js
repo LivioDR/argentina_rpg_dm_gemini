@@ -22,6 +22,7 @@ self.addEventListener('fetch', event => {
    // Caching the app shell files and skipping the chrome extensions and firebase functions
    if(!(event.request.url).startsWith('chrome-extension') && 
       !(event.request.url).startsWith(`${deployUrl}/api/`) && 
+      !(event.request.url).startsWith(`http://localhost:3000/api/`) && 
       !(event.request.url).startsWith('https://firestore.googleapis') && 
       !(event.request.url).startsWith('https://generativelanguage.googleapis.com') && 
       !(event.request.url).startsWith(`${deployUrl}/_vercel/speed-insights/vitals`) &&
