@@ -18,12 +18,12 @@ const Display = ({loading, modelResponse}) => {
             }}>
             <pre style={{whiteSpace: 'pre-wrap', padding: '5%', fontSize: '1rem', fontWeight: '400', height: '100%',}}>
             {
-            loading && 
+            !loading && 
             <Markdown>
                 {modelResponse}
             </Markdown>
             }
-            {!loading &&
+            {loading &&
                 <div style={{
                 display: 'grid',
                 placeContent: 'center',
