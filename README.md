@@ -28,7 +28,11 @@ The Authentication of users and their game logs are being managed with [Firebase
 
 A loading spinner has been added to the Display component. This spinner is part of the [react-spinners library](https://www.npmjs.com/package/react-spinners)
 
-All calls to Gemini and Firebase are being handled through custom API endpoints set in the API folder of this Next App. This way all the keys can be stored server-side and avoid exposure in the client's browser.
+Calls to Gemini are handled through a custom API endpoint in the API folder of this Next App, so the Gemini key is stored server-side and never reaches the client's browser.
+
+Firebase Authentication and Firestore run in the browser through the Firebase Web SDK. The Firebase web config (`NEXT_PUBLIC_FIREBASE_API_KEY`, `NEXT_PUBLIC_FIREBASE_APP_ID`) is public by design: it identifies the project, it does not authorize access. Access is enforced by Firebase Authentication together with the `firestore.rules` file in the root of this repo, which limits every player to their own `users/{uid}` and `campaigns/{uid}` documents. Running auth client-side also means the player's password goes straight from their browser to Google over TLS and never passes through this app's servers, and the session is persisted and refreshed by Firebase Auth rather than by application code.
+
+**`firestore.rules` has to be published to the Firebase project to take effect** — committing it here does nothing on its own. Publish through the Firebase Console (Firestore Database → Rules), or with `firebase deploy --only firestore:rules` if you have the Firebase CLI set up.
 
 ## Deployment
 
@@ -51,6 +55,8 @@ docker run -p 3000:3000 --env-file .env rpgdm
 ```
 
 Make sure to include all required variables on your dotenv file in the root folder.
+
+Note that the image does not build the app: it ships the `.next` directory from your working tree. The `NEXT_PUBLIC_*` variables are inlined into the client bundle at build time, so run `npm run build` locally **after** setting them in `.env` and **before** `docker build`, or the container will serve a bundle with no Firebase config.
 
 ---
 

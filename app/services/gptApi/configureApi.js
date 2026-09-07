@@ -1,4 +1,5 @@
 import { saveHistoryForId } from "../firebase/firebaseFunctions";
+import { auth } from "../firebase/firebaseClient";
 
 async function runAi(prompt, setModelResponse, receivedHistory, setHistory, setLoading) {
   setLoading(true)
@@ -27,8 +28,18 @@ async function runAi(prompt, setModelResponse, receivedHistory, setHistory, setL
   })
 
   // to save it in Firebase at last
-  const userId = localStorage.getItem("uid")
-  await saveHistoryForId(userId, history)
+  const userId = auth.currentUser?.uid
+  if(userId){
+    try{
+      await saveHistoryForId(userId, history)
+    }
+    catch(e){
+      console.error("Campaign progress was not saved:", e?.code)
+    }
+  }
+  else{
+    console.error("No authenticated user; campaign progress was not saved.")
+  }
   setHistory(history)
   setLoading(false)
 

@@ -23,8 +23,16 @@ self.addEventListener('fetch', event => {
    if(!(event.request.url).startsWith('chrome-extension') && 
       !(event.request.url).startsWith(`${deployUrl}/api/`) && 
       !(event.request.url).startsWith(`http://localhost:3000/api/`) && 
-      !(event.request.url).startsWith('https://firestore.googleapis') && 
-      !(event.request.url).startsWith('https://generativelanguage.googleapis.com') && 
+      !(event.request.url).startsWith('https://firestore.googleapis') &&
+      !(event.request.url).startsWith('https://generativelanguage.googleapis.com') &&
+      // Auth traffic must never be cached. cache.put() is called below with a
+      // string URL, which the Cache API turns into a GET request, so the usual
+      // "POST responses aren't cacheable" protection does not apply here: the
+      // sign-in URL is identical on every attempt, so one player's token
+      // response would be replayed to the next.
+      !(event.request.url).startsWith('https://identitytoolkit.googleapis.com') &&
+      !(event.request.url).startsWith('https://securetoken.googleapis.com') &&
+      !(event.request.url).startsWith('https://www.googleapis.com/identitytoolkit') &&
       !(event.request.url).startsWith(`${deployUrl}/_vercel/speed-insights/vitals`) &&
       !(event.request.url).startsWith(`${deployUrl}/v1/speed-insights/`)
       ){

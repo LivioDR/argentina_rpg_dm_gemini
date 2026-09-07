@@ -5,7 +5,9 @@ import InputField from "./InputField";
 import { loginUser, registerUser, resetPassword } from "@/app/services/firebase/firebaseFunctions";
 import Button from "./Button";
 
-const LoginScreen = ({setUid, setIsLogin, setUsername}) => {
+// No props: a successful sign-in is picked up by the onAuthStateChanged
+// listener in app/page.js, which swaps this screen out.
+const LoginScreen = () => {
 
     const [error, setError] = useState("")
     const [forgotPassScreen, setForgotPassScreen] = useState(false)
@@ -15,25 +17,19 @@ const LoginScreen = ({setUid, setIsLogin, setUsername}) => {
         const usernameInput = document.getElementById("username-input")
         const emailInput = document.getElementById("email-input")
         const passInput = document.getElementById("password-input")
-        
+
         const username = usernameInput.value.trim()
         const email = emailInput.value.trim()
         const pass = passInput.value.trim()
-        
+
         if(username && email && pass){
             try{
-                let attempt = await registerUser(username, email, pass, setError)
-                if(attempt){
-                    if(typeof window != "undefined"){
-                        let uid = localStorage.getItem("uid")
-                        setUid(uid)
-                        setUsername(username)
-                        setIsLogin(true)
-                    }
-                }
+                setError("Creating your account...")
+                await registerUser(username, email, pass, setError)
             }
             catch(e){
                 console.error(e)
+                setError("Something went wrong. Please try again.")
             }
         }
         else{
@@ -49,19 +45,12 @@ const LoginScreen = ({setUid, setIsLogin, setUsername}) => {
         const pass = passInput.value.trim()
         if(email && pass){
             try{
-                let attempt = await loginUser(email, pass, setError)
-                if(attempt){
-                    if(typeof window != "undefined"){
-                        let uid = localStorage.getItem("uid")
-                        let username = localStorage.getItem("username")
-                        setUid(uid)
-                        setUsername(username)
-                        setIsLogin(true)
-                    }
-                }
+                setError("Signing in...")
+                await loginUser(email, pass, setError)
             }
             catch(e){
                 console.error(e)
+                setError("Something went wrong. Please try again.")
             }
         }
         else{

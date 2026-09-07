@@ -1,0 +1,36 @@
+rules_version = '2';
+
+// Each player owns exactly one user document and one campaign document, both
+// keyed by their Firebase Auth uid. These rules are the enforcement point for
+// that ownership: the app talks to Firestore directly from the browser, so the
+// check has to happen here rather than in application code.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    match /users/{uid} {
+      allow read: if isOwner(uid);
+      // create and update, never write: allow rules are OR'd together, so
+      // granting write here would also grant delete
+      allow create, update: if isOwner(uid)
+        && request.resource.data.keys().hasOnly(['username', 'email'])
+        && request.resource.data.username is string
+        && request.resource.data.email is string;
+    }
+
+    match /campaigns/{uid} {
+      allow read: if isOwner(uid);
+      allow create, update: if isOwner(uid)
+        && request.resource.data.keys().hasOnly(['history'])
+        && request.resource.data.history is list;
+    }
+
+    // anything not matched above stays closed
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

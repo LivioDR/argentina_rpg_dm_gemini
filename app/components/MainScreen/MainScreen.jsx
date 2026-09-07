@@ -18,9 +18,15 @@ export default function MainScreen({firebaseId}) {
   useEffect(()=>{
     const getHistory = async() => {
       setLoading(true)
-      const usersHistory = await getHistoryForId(firebaseId)
-      setHistory(usersHistory)
-      setModelResponse(history[history.length -1].parts[0].text)
+      try{
+        const usersHistory = await getHistoryForId(firebaseId)
+        setHistory(usersHistory)
+        setModelResponse(history[history.length -1].parts[0].text)
+      }
+      catch(e){
+        console.error("Could not load the campaign:", e?.code || e?.message)
+        setModelResponse("We couldn't load your campaign. Please refresh to try again.")
+      }
       setLoading(false)
     }
     getHistory()
